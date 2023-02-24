@@ -5,6 +5,16 @@ const nextConfig = {
     // Required:
     appDir: true,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'ddragon.leagueoflegends.com',
+        port: '',
+        pathname: '/cdn/10.24.1/img/champion/**',
+      },
+    ],
+  },
 };
 
 module.exports = nextConfig;
