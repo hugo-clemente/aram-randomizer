@@ -4,38 +4,42 @@ export const CHAMPION_ENDPOINT =
 export const CHAMPION_IMAGE_ENDPOINT =
   'https://ddragon.leagueoflegends.com/cdn/10.24.1/img/champion';
 
-import { cache } from 'react';
+export type Champion = {
+  id: string;
+  key: string;
+  name: string;
+  title: string;
+  blurb: string;
+  info: {
+    attack: number;
+    defense: number;
+    magic: number;
+    difficulty: number;
+  };
+  image: {
+    full: string;
+    sprite: string;
+    group: string;
+    x: number;
+    y: number;
+    w: number;
+    h: number;
+  };
+  tags: number[];
+};
 
-export const fetchChampions = cache(async () => {
-  console.log('bobby');
-  const response = await fetch(CHAMPION_ENDPOINT);
-  const data = await response.json();
-  const champions = data.data as Record<
-    string,
-    {
-      id: string;
-      key: string;
-      name: string;
-      title: string;
-      blurb: string;
-      info: {
-        attack: number;
-        defense: number;
-        magic: number;
-        difficulty: number;
-      };
-      image: {
-        full: string;
-        sprite: string;
-        group: string;
-        x: number;
-        y: number;
-        w: number;
-        h: number;
-      };
-      tags: number[];
-    }
-  >;
+let cache: Champion[] | undefined = undefined;
 
-  return Object.values(champions);
-});
+export const fetchChampions = async (): Promise<Champion[]> => {
+  if (!cache) {
+    console.log('Populating cache');
+    const response = await fetch(CHAMPION_ENDPOINT);
+    const data = await response.json();
+
+    const champions = Object.values(data.data) as Champion[];
+
+    cache = champions;
+  }
+
+  return cache;
+};

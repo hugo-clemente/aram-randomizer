@@ -1,5 +1,7 @@
 import arraySample from '@/lib/array-sample';
+import generateSeed from '@/lib/generate-seed';
 import { fetchChampions } from '@/lib/lol-api';
+import Link from 'next/link';
 import { use } from 'react';
 import ChampionGrid from './ChampionGrid';
 import ShareButton from './ShareButton';
@@ -23,8 +25,13 @@ const Page: React.FC<Props> = ({ params }) => {
   return (
     <main className="container mx-auto flex min-h-screen w-full items-center justify-center">
       <ChampionGrid champions={left} />
-      <div className="mx-8 uppercase">vs</div>
-      <ShareButton />
+      <div className="mx-8 flex flex-col items-center justify-center gap-4">
+        <Link href={`/${generateSeed()}`} className="btn-outline btn-sm btn">
+          Regenerate
+        </Link>
+        <div>vs</div>
+        <ShareButton />
+      </div>
       <ChampionGrid champions={right} rtl />
     </main>
   );
