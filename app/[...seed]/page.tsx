@@ -14,13 +14,15 @@ interface Props {
   };
 }
 
+const poolSize = 20;
+
 const Page: React.FC<Props> = ({ params }) => {
   const data = use(fetchChampions());
 
-  const pool = arraySample(data, 30, params.seed[0]);
+  const pool = arraySample(data, poolSize, params.seed[0]);
 
-  const left = pool.slice(0, 15);
-  const right = pool.slice(15);
+  const left = pool.slice(0, Math.floor(poolSize / 2));
+  const right = pool.slice(Math.floor(poolSize / 2));
 
   return (
     <main className="container mx-auto flex min-h-screen w-full items-center justify-center">
