@@ -38,7 +38,7 @@ export const fetchChampions = async (): Promise<Champion[]> => {
 
     const champions = Object.values(data.data) as Champion[];
 
-    cache = champions;
+    cache = champions.filter((champ) => !['Ashe', 'AurelionSol', 'Veigar'].includes(champ.id));
   }
 
   return cache;
