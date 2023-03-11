@@ -7,6 +7,7 @@ import ChampionGrid from './ChampionGrid';
 import ShareButton from './ShareButton';
 
 export const dynamic = 'force-dynamic';
+export const runtime = 'experimental-edge';
 
 interface Props {
   params: {
