@@ -11,7 +11,7 @@ export const runtime = 'experimental-edge';
 
 interface Props {
   params: {
-    seed: string[];
+    seed: string;
   };
 }
 
@@ -20,7 +20,7 @@ const poolSize = 20;
 const Page: React.FC<Props> = ({ params }) => {
   const data = use(fetchChampions());
 
-  const pool = arraySample(data, poolSize, params.seed[0]);
+  const pool = arraySample(data, poolSize, params.seed);
 
   const left = pool.slice(0, Math.floor(poolSize / 2));
   const right = pool.slice(Math.floor(poolSize / 2));
